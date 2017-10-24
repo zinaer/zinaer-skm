@@ -34,7 +34,7 @@ sudo curl -L https://skm.zinaer.com/linux/skm -o /usr/local/bin/skm && sudo chmo
 ### 使用
 
 ```
-$ skm
+$ skm -h
 
 usage: skm [-h] [-v] [-i [init]] [-c [create]] [-l [ls]] [-u [use]]
            [-d [delete]] [-b [backup]] [-r [restore]]
