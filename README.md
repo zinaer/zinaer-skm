@@ -6,8 +6,6 @@ Other languages：
 
 * [中文简体](https://github.com/zinaer/zinaer-skm/blob/master/README_ZH.md)
 
-![](https://github.com/zinaer/zinaer-skm/blob/master/zinaer_skm.gif)
-
 ### Features
 
 * Create, List, Delete your SSH key(s)
@@ -15,18 +13,24 @@ Other languages：
 * Choose and set a default SSH key
 * Backup and restore all your SSH keys
 
+![](http://pic.zinaer.com/201710/zinaer_skm.gif)
+
 ### Installation
 
 #### Mac OS X
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/mac/skm -O /usr/local/bin/
+sudo curl https://github.com/zinaer/zinaer-skm/blob/master/mac/zinaer-skm-mac.tar.gz -O /usr/local/bin/ && \
+cd /usr/local/bin/ && \
+tar -zxf zinaer-skm-mac.tar.gz
 ``` 
 
 #### Linux
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/linux/skm -O /usr/local/bin/
+sudo curl https://github.com/zinaer/zinaer-skm/blob/master/linux/zinaer-skm-linux.tar.gz -O /usr/local/bin/ && \
+cd /usr/local/bin/ && \
+tar -zxf zinaer-skm-linux.tar.gz
 ```
 
 

@@ -6,8 +6,6 @@ Zinaer SKM 是一个简洁，强大的 SSH 密钥管理工具。让你能够轻�
 
 * [English](https://github.com/zinaer/zinaer-skm/blob/master/README.md)
 
-![](https://github.com/zinaer/zinaer-skm/blob/master/zinaer_skm.gif)
-
 ### 特性
 
 * 创建，查看和删除你的 SSH 密钥
@@ -15,18 +13,24 @@ Zinaer SKM 是一个简洁，强大的 SSH 密钥管理工具。让你能够轻�
 * 选择并设置默认的 SSH 密钥
 * 备份和回复你所有的 SSH 密钥
 
+![](http://pic.zinaer.com/201710/zinaer_skm.gif)
+
 ### 安装
 
 #### Mac OS X
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/mac/skm -O /usr/local/bin/
+sudo curl https://github.com/zinaer/zinaer-skm/blob/master/mac/zinaer-skm-mac.tar.gz -O /usr/local/bin/ && \
+cd /usr/local/bin/ && \
+tar -zxf zinaer-skm-mac.tar.gz
 ``` 
 
 #### Linux
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/linux/skm -O /usr/local/bin/
+sudo curl https://github.com/zinaer/zinaer-skm/blob/master/linux/zinaer-skm-linux.tar.gz -O /usr/local/bin/ && \
+cd /usr/local/bin/ && \
+tar -zxf zinaer-skm-linux.tar.gz
 ```
 
 ### 使用
