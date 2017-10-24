@@ -13,8 +13,6 @@ Zinaer SKM is a simple and powerful SSH Keys Manager. It helps you to manage you
 * Choose and set a default SSH key
 * Backup and restore all your SSH keys
 
-![](https://github.com/zinaer/zinaer-skm/blob/master/zinaer_skm.gif)
-
 ### Installation
 
 #### Mac OS X
