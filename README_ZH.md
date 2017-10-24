@@ -13,8 +13,6 @@ Zinaer SKM 是一个简洁，强大的 SSH 密钥管理工具。让你能够轻�
 * 选择并设置默认的 SSH 密钥
 * 备份和回复你所有的 SSH 密钥
 
-![](https://github.com/zinaer/zinaer-skm/blob/master/zinaer_skm.gif)
-
 ### 安装
 
 #### Mac OS X
