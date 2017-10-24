@@ -1,0 +1,227 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import argparse
+import textwrap
+import os
+import sys
+import time
+import getpass
+
+class init(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        path = os.environ['HOME']
+        sku_path = path + '/.skm/'
+
+        if os.path.exists(sku_path):
+            print '✔ SSH key store already exists.'
+        else:
+            os.mkdir(sku_path, 0755)
+
+            if os.path.exists(path + '/.ssh/id_rsa') and os.path.exists(path + '/.ssh/id_rsa.pub'):
+                default_path = path + '/.skm/default/'
+                os.mkdir(default_path, 0755)
+                os.system('cp ' + path + '/.ssh/id_rsa ' + path + '/.skm/default/')
+                os.system('cp ' + path + '/.ssh/id_rsa.pub ' + path + '/.skm/default/')
+                os.system('ln -sf ' + path + '/.skm/default/id_rsa ' + path + '/.ssh/id_rsa')
+                os.system('ln -sf ' + path + '/.skm/default/id_rsa.pub ' + path + '/.ssh/id_rsa.pub')
+            print '✔ SSH key store initialized!'
+            print 'Key store location is: ' + sku_path
+
+class create(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if not values:
+            print 'Please input key alias name!'
+            exit()
+
+        path = os.environ['HOME'] + '/.skm/' + values
+
+        if os.path.exists(path):
+            print '✖ SSH key alias already exists, please choose another one!'
+            exit()
+
+        print 'Generating public/private rsa key pair.'
+        passwd = getpass.getpass('Enter passphrase (empty for no passphrase):')
+
+        id_rsa_path = path + '/id_rsa'
+
+        if passwd:
+            if len(passwd) < 5:
+                print 'Saving key "' + id_rsa_path + '" failed: passphrase is too short (minimum five characters)'
+            else:
+                re_passwd = getpass.getpass('Enter same passphrase again:')
+
+                if passwd == re_passwd:
+                    os.mkdir(path, 0755)
+                    os.system('ssh-keygen -f ' + id_rsa_path + ' -N ' + passwd)
+                    print '✔ SSH key [' + values + '] created!'
+                else:
+                    print 'Passphrases do not match.  Try again.'
+                    re_passwd = getpass.getpass('Enter same passphrase again:')
+
+                    if passwd == re_passwd:
+                        os.mkdir(path, 0755)
+                        os.system('ssh-keygen -f ' + id_rsa_path + ' -N ' + passwd)
+                        print '✔ SSH key [' + values + '] created!'
+                    else:
+                        print 'Passphrases do not match.  Try again from start.'
+        else:
+            os.mkdir(path, 0755)
+            os.system('ssh-keygen -f ' + id_rsa_path + ' -N ""')
+            print '✔ SSH key [' + values + '] created!'
+
+class ls(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        path = os.environ['HOME']
+        link_path = ''
+        skm_path = path + '/.skm/'
+
+        if not os.path.exists(skm_path):
+            print '✔  No SSH key found!'
+        else:
+            if path + '/.ssh/id_rsa':
+                output = os.popen('readlink ' + path + '/.ssh/id_rsa')
+                link_id_rsa = output.read()
+
+                if link_id_rsa:
+                    output = os.popen('dirname ' + link_id_rsa)
+                    link_path = output.read().strip('\n')
+
+            dirs = os.listdir(skm_path)
+            count = 0
+            dir = ''
+
+            for file in dirs:
+                id_rsa_path = skm_path + file
+
+                if os.path.isdir(id_rsa_path):
+
+                    if id_rsa_path == link_path:
+                        file = file + ' ✔'
+
+                    count = count + 1
+                    dir = dir + file + '\n'
+            print ''
+            print '✔ Found ' + str(count) + ' SSH key(s)!'
+            print ''
+            print dir
+
+class use(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if values:
+            path = os.environ['HOME']
+            id_rsa_path = path + '/.skm/' + values
+
+            if os.path.exists(id_rsa_path):
+                if not os.path.isdir(path + '/.ssh'):
+                    os.mkdir(path + '/.ssh', 0755)
+                os.system('ln -sf ' + id_rsa_path + '/id_rsa ' + path + '/.ssh/id_rsa')
+                os.system('ln -sf ' + id_rsa_path + '/id_rsa.pub ' + path + '/.ssh/id_rsa.pub')
+                print 'Now using SSH key: ' + values
+            else:
+                print 'Key alias: ' + values + ' doesn\'t exist!'
+        else:
+            print 'Please input key alias name!'
+
+class delete(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if values:
+            path = os.environ['HOME']
+            id_rsa_path = path + '/.skm/' + values
+
+            if os.path.exists(id_rsa_path):
+                confirm_now_use = ''
+
+                if os.path.exists(path + '/.ssh/id_rsa'):
+                    output = os.popen('readlink ' + path + '/.ssh/id_rsa')
+                    link_id_rsa = output.read()
+
+                    if link_id_rsa:
+                        output = os.popen('dirname ' + link_id_rsa)
+                        link_path = output.read().strip('\n')
+
+                        if id_rsa_path == link_path:
+                            confirm = raw_input('SSH key [' + values +'] is currently in use, please confirm to delete it [y/n]:')
+                            confirm_now_use = 'yes'
+                        else:
+                            confirm = raw_input('Please confirm to delete SSH key ['+ values + '] [y/n]:')
+                    else:
+                        confirm = raw_input('Please confirm to delete SSH key ['+ values + '] [y/n]:')
+                else:
+                    confirm = raw_input('Please confirm to delete SSH key [' + values + '] [y/n]:')
+
+                if confirm == 'n':
+                    exit()
+                elif confirm == 'y':
+                    os.system('rm -rf ' + id_rsa_path)
+
+                    if os.path.exists(path + '/.ssh/id_rsa') and confirm_now_use:
+                        os.system('rm ' + path + '/.ssh/id_rsa')
+
+                    if os.path.exists(path + '/.ssh/id_rsa.pub') and confirm_now_use:
+                        os.system('rm ' + path + '/.ssh/id_rsa.pub')
+
+                    print '✔ SSH key [' + values + '] deleted!'
+                else:
+                    print 'Please input right option!'
+            else:
+                print 'Key alias: ' + values + ' doesn\'t exist!'
+        else:
+            print 'Please input key alias name!'
+
+class backup(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        path = os.environ['HOME']
+
+        if os.path.exists(path + '/.skm'):
+            filename = 'skm-' + time.strftime('%Y%m%d%H%M%S', time.localtime()) + '.tar.gz'
+            os.system('cd ' + path + '/.skm' + ' && tar -zcvf ' + path + '/' + filename + ' ./')
+            print ''
+            print '✔  All SSH keys backup to: ' + path + '/' + filename
+        else:
+            print '✖ chdir ' + path + '/.skm: no such file or directory'
+
+class restore(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if values:
+            path = os.environ['HOME']
+
+            if os.path.exists(values):
+                if not os.path.exists(path + '/.skm'):
+                    os.mkdir(path + '/.skm', 0755)
+
+                os.system('cd ' + path + '/.skm' + ' && tar -zxvf ' + values)
+                print '✔  All SSH keys restored to ' + path + '/.skm'
+            else:
+                print 'Please input the correct backup file path!'
+        else:
+            print 'Please input the correct backup file path!'
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog='skm',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=textwrap.dedent('''
+            Zinaer SKM - Manage your multiple SSH keys easily.
+            --------------------------------------------------
+                Author: zinaer.com
+                Website: https://skm.zinaer.com
+                Version: 1.0
+                
+            '''),
+        epilog='Please enjoy it!'
+    )
+
+    parser.add_argument('-v', '--version', action='version', help='print the version', version='Zinaer SKM version 1.0.')
+    parser.add_argument('-i', metavar='init', help='Initialize SSH keys store for the first time use', nargs='?', action=init)
+    parser.add_argument('-c', metavar='create', help='Create a new SSH key', nargs='?', action=create)
+    parser.add_argument('-l', metavar='ls', help='List all the available SSH keys', nargs='?', action=ls)
+    parser.add_argument('-u', metavar='use', help='Set specific SSH key as default by its alias name', nargs='?', action=use)
+    parser.add_argument('-d', metavar='delete', help='Delete specific SSH key by alias name', nargs='?', action=delete)
+    parser.add_argument('-b', metavar='backup', help='Backup all SSH keys to an archive file', nargs='?', action=backup)
+    parser.add_argument('-r', metavar='restore', help='Restore SSH keys from an existing archive file', nargs='?', action=restore)
+
+    parser.parse_args()
+
+if __name__ == '__main__':
+    main()
