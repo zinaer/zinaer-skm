@@ -34,7 +34,7 @@ Download it from [releases](https://github.com/zinaer/zinaer-skm/releases) and e
 ### Usage
 
 ```
-$ skm
+$ skm -h
 
 usage: skm [-h] [-v] [-i [init]] [-c [create]] [-l [ls]] [-u [use]]
            [-d [delete]] [-b [backup]] [-r [restore]]
