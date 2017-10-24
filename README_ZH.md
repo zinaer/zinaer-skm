@@ -2,7 +2,7 @@
 
 Zinaer SKM 是一个简洁，强大的 SSH 密钥管理工具。让你能够轻松管理大量的 SSH 密钥。
 
-其它语言：
+**其它语言：**
 
 * [English](https://github.com/zinaer/zinaer-skm/blob/master/README.md)
 
@@ -20,18 +20,18 @@ Zinaer SKM 是一个简洁，强大的 SSH 密钥管理工具。让你能够轻�
 #### Mac OS X
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/mac/zinaer-skm-mac.tar.gz -O /usr/local/bin/ && \
-cd /usr/local/bin/ && \
-tar -zxf zinaer-skm-mac.tar.gz
+sudo curl https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-mac64-1.0.tar.gz -o /usr/local/bin/zinaer-skm-mac64-1.0.tar.gz && cd /usr/local/bin/ && tar -zxvf zinaer-skm-mac64-1.0.tar.gz
 ``` 
 
 #### Linux
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/linux/zinaer-skm-linux.tar.gz -O /usr/local/bin/ && \
-cd /usr/local/bin/ && \
-tar -zxf zinaer-skm-linux.tar.gz
+sudo curl https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-linux64-1.0.tar.gz -o /usr/local/bin/zinaer-skm-linux64-1.0.tar.gz && cd /usr/local/bin/ && tar -zxvf zinaer-skm-linux64-1.0.tar.gz
 ```
+
+#### 手动安装
+
+从 [releases](https://github.com/zinaer/zinaer-skm/releases) 下载，并解压到 `/usr/local/bin` 或者你喜欢的目录。
 
 ### 使用
 

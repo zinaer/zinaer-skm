@@ -2,7 +2,7 @@
 
 Zinaer SKM is a simple and powerful SSH Keys Manager. It helps you to manage your multiple SSH keys easily!
 
-Other languages：
+**Other languages：**
 
 * [中文简体](https://github.com/zinaer/zinaer-skm/blob/master/README_ZH.md)
 
@@ -20,19 +20,18 @@ Other languages：
 #### Mac OS X
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/mac/zinaer-skm-mac.tar.gz -O /usr/local/bin/ && \
-cd /usr/local/bin/ && \
-tar -zxf zinaer-skm-mac.tar.gz
+sudo curl https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-mac64-1.0.tar.gz -o /usr/local/bin/zinaer-skm-mac64-1.0.tar.gz && cd /usr/local/bin/ && tar -zxvf zinaer-skm-mac64-1.0.tar.gz
 ``` 
 
 #### Linux
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/blob/master/linux/zinaer-skm-linux.tar.gz -O /usr/local/bin/ && \
-cd /usr/local/bin/ && \
-tar -zxf zinaer-skm-linux.tar.gz
+sudo curl https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-linux64-1.0.tar.gz -o /usr/local/bin/zinaer-skm-linux64-1.0.tar.gz && cd /usr/local/bin/ && tar -zxvf zinaer-skm-linux64-1.0.tar.gz
 ```
 
+#### Manual Installation
+
+Download it from [releases](https://github.com/zinaer/zinaer-skm/releases) and extact it to `/usr/local/bin` or your PATH directory.
 
 ### Usage
 
@@ -150,5 +149,5 @@ x ./default/id_rsa.pub
 
 ### Licence
 
-[MIT 许可证](https://github.com/zinaer/zinaer-skm/blob/master/LICENSE)
+[MIT Licence](https://github.com/zinaer/zinaer-skm/blob/master/LICENSE)
 
