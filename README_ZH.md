@@ -20,13 +20,17 @@ Zinaer SKM 是一个简洁，强大的 SSH 密钥管理工具。让你能够轻�
 #### Mac OS X
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-mac64-1.0.tar.gz -o /usr/local/bin/zinaer-skm-mac64-1.0.tar.gz && cd /usr/local/bin/ && tar -zxvf zinaer-skm-mac64-1.0.tar.gz
+sudo curl -L https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-mac64-1.0.tar.gz \
+-o /usr/local/bin/zinaer-skm-mac64-1.0.tar.gz && \
+cd /usr/local/bin/ && tar -zxvf zinaer-skm-mac64-1.0.tar.gz
 ``` 
 
 #### Linux
 
 ```
-sudo curl https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-linux64-1.0.tar.gz -o /usr/local/bin/zinaer-skm-linux64-1.0.tar.gz && cd /usr/local/bin/ && tar -zxvf zinaer-skm-linux64-1.0.tar.gz
+sudo curl -L https://github.com/zinaer/zinaer-skm/releases/download/V1.0/zinaer-skm-linux64-1.0.tar.gz \
+-o /usr/local/bin/zinaer-skm-linux64-1.0.tar.gz && \
+cd /usr/local/bin/ && \tar -zxvf zinaer-skm-linux64-1.0.tar.gz
 ```
 
 #### 手动安装
